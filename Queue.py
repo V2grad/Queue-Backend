@@ -3,6 +3,7 @@ class Queue():
         self.data = list()
         self.name = name
 
+
     def add(self,index,value):
         self.data.insert(index,value)
         return (0,"Succcess")
@@ -43,6 +44,14 @@ class Queue():
         self.data[index2] = tmp
 
         return (0,"Success")
+
+    def DATA(self):
+        result =  {"name": self.name, "data" : {}}
+
+        for index in range(0,len(self.data)):
+            result["data"][index] = self.data[index]
+
+        return result
 
 
 
