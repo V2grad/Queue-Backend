@@ -1,17 +1,27 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const uuidv4 = require('uuid/v4');
 
 const eventAttributes = {
     creator_id : {
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
+    instructor_key: {
+        type: String,
+        required: true
+    },
     record_ids: [{ 
             type: Schema.ObjectId, 
             ref: 'Record' 
         }],
+    title: {
+        type: String,
+        required: true
+    },
     tags: [{
-        type: String
+        type: String,
+        default: null
     }]
 }
 
@@ -31,32 +41,30 @@ Event.virtual('records', {
     foreignField: '_id'
 })
 
-Event.statics.findOneByToken = function (token) {
-    return this.findOne({
-        token
-    }).populate('event').exec()
-}
-
-Event.statics.findTokenByEventId = function (event_id) {
-    return this.find({
-        event_id
-    }).exec()
-}
-
 Event.statics.create = async function (
-    event, event_agent, ip
+    {title, tags, user_id}
 ) {
-    let token = await uidgen.generate() // -> 'B1q2hUEKmeVp9zWepx9cnp',
+    
     // Instantiates new Event model
     const event = new this({
-        event_id: event._id,
-        event_agent: event_agent,
-        ip: ip,
-        token: token
+        title, tags, creator_id: user_id, instructor_key: uuidv4()
     })
 
     // Return Event.save() Promise
     return event.save()
+}
+
+Event.methods.updateInstructorKey = async function() {
+    this.instructor_key = uuidv4();
+    return this.save()
+}
+
+Event.methods.isInsturctor = function (id) {
+    return this.instructor_key === id
+}
+
+Event.methods.isCreator = function (id) {
+    return this.creator_id.toString() == id
 }
 
 

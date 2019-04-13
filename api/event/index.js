@@ -7,6 +7,7 @@ router.get('/:id', controller.show);
 
 // POST /event
 router.post('/', controller.create);
+router.post('/:id/updateKey', controller.updateKey)
 
 // PUT /event/:id
 // Update status

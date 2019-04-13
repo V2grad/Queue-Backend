@@ -13,7 +13,7 @@ router.post('/', controller.create);
 router.put('/:id', controller.update);
 
 // DELETE /record/:id
-router.delete('/:id', controller.delete);
+// router.delete('/:id', controller.delete);
 
 // // // //
 
