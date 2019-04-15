@@ -4,6 +4,7 @@ const controller = require('./event.controller');
 // // // //
 // GET /event/:id
 router.get('/:id', controller.show);
+// router.get('/:code', controller.retrieveEvent);
 
 // POST /event
 router.post('/', controller.create);

@@ -59,12 +59,12 @@ Event.methods.updateInstructorKey = async function() {
     return this.save()
 }
 
-Event.methods.isInsturctor = function (id) {
-    return this.instructor_key === id
+Event.methods.isInstructor = function (id) {
+    return this.instructor_key == id
 }
 
 Event.methods.isCreator = function (id) {
-    return this.creator_id.toString() == id
+    return this.creator_id == id
 }
 
 

@@ -14,10 +14,13 @@ exports.show = (req, res) => {
                     tags: r.tags
                 })
             }
-        }).catch(e => [
+        }).catch(e => {
+            res.status(500)
+            console.log(e)
             res.json(e)
-        ])
+        })
     } else {
+        res.status = 404
         res.json({
             message: 'No Found'
         })
@@ -27,13 +30,15 @@ exports.show = (req, res) => {
 exports.create = (req, res) => {
     let { title, tags } = req.body
     let _id = req.header('user-id')
-    if (title && tags) {
+    if (title && tags && _id) {
         Event.create({title, tags, user_id: _id}).then(r => {
             res.json(r)
         }).catch(e => {
+            res.status(500)
             res.json(e)
         })
     } else {
+        res.status(404)
         res.json({
             message: 'No Found'
         })
@@ -54,9 +59,11 @@ exports.update = (req, res) => {
                 })
             } 
         }).catch(e => {
+            res.status(500)
             res.json(e)
         })
     } else {
+        res.status = 404
         res.json({
             message: 'No Found'
         })
@@ -78,9 +85,11 @@ exports.updateKey = (req, res) => {
                 })
             }
         }).catch(e => {
+            res.status(500)
             res.json(e)
         })
     } else {
+        res.status(404)
         res.json({
             message: 'No Found'
         })
@@ -99,10 +108,12 @@ exports.delete = (req, res) => {
                     })
                 })
             }
-        }).catch(e => [
+        }).catch(e => {
+            res.status(500)
             res.json(e)
-        ])
+        })
     } else {
+        res.status(404)
         res.json({
             message: 'No Found'
         })

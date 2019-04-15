@@ -10,6 +10,7 @@ exports.userInfo = (req, res) => {
       res.json(e)
     })
   } else {
+    res.status = 404
     res.json({})
   }
 }
@@ -29,6 +30,7 @@ exports.update = (req, res) => {
       res.json(m)
     }) 
   }).catch(e => {
+    res.status = 404
     res.json(e)
   })
 }
@@ -38,6 +40,7 @@ exports.delete = (res, req) => {
   User.findByIdAndDelete(id).then(r => {
     res.json(r)
   }).catch(e => {
+    res.status = 404
     res.json(e)
   })
 }

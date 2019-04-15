@@ -11,6 +11,7 @@ exports.show = (req, res) => {
             instructor: r.instructor_id ? r.instructor.display_name : 'Unknown Person'
         })
     }).catch(e => {
+        res.status = 404
         res.json(e)
     })
 }
@@ -32,6 +33,7 @@ exports.create = (req, res) => {
             })
         })
     } else {
+        res.status = 404
         res.json({
             message: 'missing parameters'
         })
@@ -58,6 +60,7 @@ exports.update = (req, res) => {
                 res.json(r)
             })
         }).catch(e => {
+            res.status = 404
             res.json(e)
         })
     }
